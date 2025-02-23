@@ -5,8 +5,13 @@ Authors@R: c(
   person("Choonghyun", "Ryu",, "choonghyun.ryu@gmail.com", role = c("aut", "cre"))
   )
 Description: Various handlings are needed to utilize the results of the Large Language Model Chat API in documents, etc.
+Depends: ellmer
 Imports: 
-    ellmer,
+    dplyr,
+    httr,
+    jsonlite,
+    lubridate,
+    purrr,
     stringr
 License: MIT
 Encoding: UTF-8
