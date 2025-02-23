@@ -1,0 +1,14 @@
+Package: chat2doc
+Title: Support Chat with Large Language Models
+Version: 0.0.0.9000
+Authors@R: c(
+  person("Choonghyun", "Ryu",, "choonghyun.ryu@gmail.com", role = c("aut", "cre"))
+  )
+Description: Various handlings are needed to utilize the results of the Large Language Model Chat API in documents, etc.
+Imports: 
+    ellmer,
+    stringr
+License: MIT
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

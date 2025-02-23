@@ -1,0 +1,5 @@
+^chat2doc\.Rproj$
+^\.Rproj\.user$
+.Rhistory
+.RData
+.DS_Store
