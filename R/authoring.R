@@ -13,7 +13,7 @@ edit_openai <- function(x, type = c("summary", "edit")) {
 
   type_summary <- type_object(
     "요약",
-    summary = type_string("내용을 요약해 줘. 최대 4~5 paragraphs")
+    summary = type_string("최대 3~4 문단으로 내용을 요약해 줘.")
   )
 
   type_edit <- type_object(
