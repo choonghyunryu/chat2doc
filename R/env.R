@@ -11,7 +11,7 @@
 #' @import dplyr
 #' @importFrom base64enc base64decode
 get_api_key <- function() {
-  openai_file <- system.file(".openapiKey", package = "chat2doc")
+  openai_file <- system.file(".openaiKey", package = "chat2doc")
   anthropic_file  <- system.file(".anthropicKey", package = "chat2doc")
   google_file  <- system.file(".googleKey", package = "chat2doc")
 
@@ -69,128 +69,52 @@ get_api_key <- function() {
 }
 
 
-#' Set openai API key to system environment
-#' @description openai와 인터페이스하기 위한 openai API key를 설정합니다.
-#' @param api_key character. 등록할 openai API key.
+#' Set API key to system environment
+#' @description 모델과 인터페이스하기 위한 회사별 API key를 설정합니다.
+#' @param company character. 등록할 API key의 회사명.
+#' @param api_key character. 등록할 API key.
 #' @details 만약에 여러 사용자가 사용하는 환경이 아닌 개인 컴퓨터에 chat2doc 패키지를 설치한 경우라면,
-#' set_openai_key() 대신에 매번 API key를 등록할 필요없는 regist_openai_key()를 사용하세요.
+#' set_api_key() 대신에 매번 API key를 등록할 필요없는 regist_api_key()를 사용하세요.
 #' @examples
 #' \dontrun{
 #' # 실제 사용자가 할당받은 openai API key를 사용합니다.
-#' # set_openai_key("XXXXXXXXXXX")
+#' # set_api_key("openai", "XXXXXXXXXXX")
 #' }
 #' @export
-set_openai_key <- function(api_key = NULL) {
+set_api_key <- function(company = c("openai", "anthropic", "google"), api_key = NULL) {
+  company <- match.arg(company)
+
   if (is.null(api_key)) {
     stop("OpanAI API key is required.")
   }
 
-  Sys.setenv(
-    OPENAI_API_KEY = api_key
-  )
+  company <- paste0(toupper(company), "_API_KEY")
+
+  do.call(Sys.setenv, setNames(list(api_key), company))
 }
 
-
-#' Set anthropic API key to system environment
-#' @description anthropic AI와 인터페이스하기 위한 anthropic API key를 설정합니다.
-#' @param api_key character. 등록할 anthropic API key.
-#' @details 만약에 여러 사용자가 사용하는 환경이 아닌 개인 컴퓨터에 chat2doc 패키지를 설치한 경우라면,
-#' set_anthropic_key() 대신에 매번 API key를 등록할 필요없는 regist_anthropic_key()를 사용하세요.
-#' @examples
-#' \dontrun{
-#' # 실제 사용자가 할당받은 anthropic API key를 사용합니다.
-#' # set_anthropic_key("XXXXXXXXXXX")
-#' }
-#' @export
-set_anthropic_key <- function(api_key = NULL) {
-  if (is.null(api_key)) {
-    stop("anthropic API key is required.")
-  }
-  Sys.setenv(
-    ANTHROPIC_API_KEY = api_key
-  )
-}
-
-
-#' Set google API key to system environment
-#' @description google AI와 인터페이스하기 위한 google API key를 설정합니다.
-#' @param api_key character. 등록할 google API key.
-#' @details 만약에 여러 사용자가 사용하는 환경이 아닌 개인 컴퓨터에 chat2doc 패키지를 설치한 경우라면,
-#' set_google_key() 대신에 매번 API key를 등록할 필요없는 regist_google_key()를 사용하세요.
-#' @examples
-#' \dontrun{
-#' # 실제 사용자가 할당받은 google API key를 사용합니다.
-#' # set_google_key("XXXXXXXXXXX")
-#' }
-#' @export
-set_google_key <- function(api_key = NULL) {
-  if (is.null(api_key)) {
-    stop("google API key is required.")
-  }
-  Sys.setenv(
-    GOOGLE_API_KEY = api_key
-  )
-}
-
-
-#' Regist openai API key to package file
+#' Regist API key to package file
 #' @description openai와 인터페이스하기 위한 openai API key를 등록합니다.
-#' @param api_key character. 등록할 openai API key.
+#' @param company character. 등록할 API key의 회사명.
+#' @param api_key character. 등록할 API key.
 #' @details 만약에 개인 컴퓨터가 아닌 여러 사용자가 사용하는 환경에 chat2doc 패키지를 설치한 경우라면,
-#' API key의 보안을 위해서 regist_openai_key()대신 set_openai_key()를 사용하세요.
+#' API key의 보안을 위해서 regist_api_key()대신 set_api_key()를 사용하세요.
 #' @examples
 #' \dontrun{
 #' # 실제 사용자가 할당받은 openai API key를 사용합니다.
-#' # regist_openai_key("XXXXXXXXXXX")
+#' # regist_api_key("openai", "XXXXXXXXXXX")
 #' }
 #' @export
 #' @import dplyr
 #' @importFrom base64enc base64encode
-regist_openai_key <- function(api_key = NULL) {
-  if (is.null(api_key)) {
-    stop("OpanAI API key is required.")
-  }
+regist_api_key <- function(company = c("openai", "anthropic", "google"), api_key = NULL) {
+  company <- match.arg(company)
 
-  key_file <- file.path(system.file(package = "chat2doc"), ".openapiKey")
-
-  decode_api_key <- api_key %>%
-    charToRaw() %>%
-    base64enc::base64encode()
-
-  if (!file.exists(key_file)) {
-    con <- file(key_file, "w")
-    tryCatch({
-      cat(decode_api_key, file = con, sep = "\n")
-    }, finally = {
-      close(con)
-    })
-  }
-
-  Sys.setenv(
-    OPENAI_API_KEY = api_key
-  )
-}
-
-
-#' Regist anthropic API key to package file
-#' @description anthropic과 인터페이스하기 위한 anthropic API key를 등록합니다.
-#' @param api_key character. 등록할 anthropic API key.
-#' @details 만약에 개인 컴퓨터가 아닌 여러 사용자가 사용하는 환경에 chat2doc 패키지를 설치한 경우라면,
-#' API key의 보안을 위해서 regist_anthropic_key()대신 set_anthropic_key()를 사용하세요.
-#' @examples
-#' \dontrun{
-#' # 실제 사용자가 할당받은 anthropic API key를 사용합니다.
-#' # regist_anthropic_key("XXXXXXXXXXX")
-#' }
-#' @export
-#' @import dplyr
-#' @importFrom base64enc base64encode
-regist_anthropic_key <- function(api_key = NULL) {
   if (is.null(api_key)) {
     stop("anthropic API key is required.")
   }
 
-  key_file <- file.path(system.file(package = "chat2doc"), ".anthropicKey")
+  key_file <- file.path(system.file(package = "chat2doc"), paste0(".", company, "Key"))
 
   decode_api_key <- api_key %>%
     charToRaw() %>%
@@ -205,48 +129,7 @@ regist_anthropic_key <- function(api_key = NULL) {
     })
   }
 
-  Sys.setenv(
-    ANTHROPIC_API_KEY = api_key
-  )
-}
-
-
-#' Regist google API key to package file
-#' @description google과 인터페이스하기 위한 google API key를 등록합니다.
-#' @param api_key character. 등록할 google API key.
-#' @details 만약에 개인 컴퓨터가 아닌 여러 사용자가 사용하는 환경에 chat2doc 패키지를 설치한 경우라면,
-#' API key의 보안을 위해서 regist_google_key()대신 set_google_key()를 사용하세요.
-#' @examples
-#' \dontrun{
-#' # 실제 사용자가 할당받은 google API key를 사용합니다.
-#' # regist_google_key("XXXXXXXXXXX")
-#' }
-#' @export
-#' @import dplyr
-#' @importFrom base64enc base64encode
-regist_google_key <- function(api_key = NULL) {
-  if (is.null(api_key)) {
-    stop("google API key is required.")
-  }
-
-  key_file <- file.path(system.file(package = "chat2doc"), ".googleKey")
-
-  decode_api_key <- api_key %>%
-    charToRaw() %>%
-    base64enc::base64encode()
-
-  if (!file.exists(key_file)) {
-    con <- file(key_file, "w")
-    tryCatch({
-      cat(decode_api_key, file = con, sep = "\n")
-    }, finally = {
-      close(con)
-    })
-  }
-
-  Sys.setenv(
-    GOOGLE_API_KEY = api_key
-  )
+  set_api_key(company, api_key)
 }
 
 

@@ -1,6 +1,6 @@
 Package: chat2doc
 Title: Support Chat with Large Language Models
-Version: 0.0.1.9000
+Version: 0.0.2.9000
 Authors@R: c(
   person("Choonghyun", "Ryu",, "choonghyun.ryu@gmail.com", role = c("aut", "cre"))
   )
