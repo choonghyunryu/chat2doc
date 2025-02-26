@@ -1,4 +1,21 @@
-# chat2doc 0.0.2.9000
+# chat2doc 0.0.3.9000
+
+## NEW FEATURES
+
+* Support xAI Grok. (#3).
+    - add functions
+        - chat_grok()
+        
+## MINOR CHANGES
+
+* Support xAI Grok. (#3).
+    - change functions for Grok
+        - regist_api_key()
+        - set_api_key()        
+        
+
+        
+# chat2doc 0.0.2
 
 ## MAJOR CHANGES
 

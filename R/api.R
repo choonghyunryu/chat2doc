@@ -1,7 +1,7 @@
 #' List openai models
 #' @description 현재 사용 가능한 모델을 나열하고 소유자 및 생성일자 등,
 #' 각 모델에 대한 기본 정보를 제공.
-#' @param api_key character. openai API key..
+#' @param api_key character. openai API key.
 #' @return a data.frame.
 #' Names of data.frame is as follows.
 #' \itemize{
@@ -53,7 +53,7 @@ list_models_openai <- function(api_key = Sys.getenv("OPENAI_API_KEY")) {
 #' List anthropic models
 #' @description 현재 사용 가능한 모델을 나열하고 소유자 및 생성일자 등,
 #' 각 모델에 대한 기본 정보를 제공.
-#' @param api_key character. anthropic API key..
+#' @param api_key character. anthropic API key.
 #' @return a data.frame.
 #' Names of data.frame is as follows.
 #' \itemize{
@@ -97,5 +97,34 @@ list_models_anthropic <- function(api_key = Sys.getenv("ANTHROPIC_API_KEY")) {
   } else {
     cat(paste("Error:", httr::status_code(response), "\n"))
   }
+}
+
+
+#' Chat with a xAI model
+#' @description xAI의 Grok API를 사용하여 모델과 대화합니다.
+#' @param system_prompt character. 시스템 프롬프트.
+#' @param model character. 모델의 이름. 기본값은 "grok-2-latest".
+#' @param api_key character. xAI API key.
+#' @return A Chat object.
+#' @examples
+#' \dontrun{
+#' chat <- chat_grok()
+#' chat$chat("Tell me three jokes about statisticians")
+#' }
+#' @import ellmer
+#' @export
+chat_grok <- function(system_prompt = NULL,
+                      model = "grok-2-latest",
+                      api_key = Sys.getenv("XAI_API_KEY")) {
+  # xAI 엔드포인트 URL
+  url <- "https://api.x.ai/v1/"
+
+  # https://github.com/tidyverse/ellmer/issues/216
+  chat_openai(
+    system_prompt = system_prompt,
+    model = model,
+    base_url = url,
+    api_key = api_key
+    )
 }
 

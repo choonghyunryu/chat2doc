@@ -27,4 +27,13 @@
       set_api_key("google", api_key$google_api_key)
     }
   }
+
+  if (Sys.getenv("XAI_API_KEY") == "") {
+    api_key <- get_api_key()
+
+    # set google API key
+    if (!is.null(api_key$xai_api_key)) {
+      set_api_key("xai", api_key$xai_api_key)
+    }
+  }
 }

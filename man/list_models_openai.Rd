@@ -10,7 +10,7 @@ list_models_openai(api_key = Sys.getenv("OPENAI_API_KEY"))
 list_models_anthropic(api_key = Sys.getenv("ANTHROPIC_API_KEY"))
 }
 \arguments{
-\item{api_key}{character. anthropic API key..}
+\item{api_key}{character. anthropic API key.}
 }
 \value{
 a data.frame.

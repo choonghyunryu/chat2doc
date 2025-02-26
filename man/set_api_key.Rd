@@ -4,7 +4,10 @@
 \alias{set_api_key}
 \title{Set API key to system environment}
 \usage{
-set_api_key(company = c("openai", "anthropic", "google"), api_key = NULL)
+set_api_key(
+  company = c("openai", "anthropic", "google", "xai"),
+  api_key = NULL
+)
 }
 \arguments{
 \item{company}{character. 등록할 API key의 회사명.}

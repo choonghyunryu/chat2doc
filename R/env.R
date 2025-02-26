@@ -14,6 +14,7 @@ get_api_key <- function() {
   openai_file <- system.file(".openaiKey", package = "chat2doc")
   anthropic_file  <- system.file(".anthropicKey", package = "chat2doc")
   google_file  <- system.file(".googleKey", package = "chat2doc")
+  xai_file  <- system.file(".xaiKey", package = "chat2doc")
 
   # for openai API key
   if (openai_file != "") {
@@ -63,9 +64,26 @@ get_api_key <- function() {
     google_api_key = NULL
   }
 
+  # for xAI API key
+  if (xai_file != "") {
+    con <- file(xai_file, "r")
+
+    tryCatch({
+      xai_api_key <- readLines(con) %>%
+        base64enc::base64decode() %>%
+        rawToChar()
+    },
+    finally = {
+      close(con)
+    })
+  } else {
+    xai_api_key = NULL
+  }
+
   list(openai_api_key = openai_api_key,
        anthropic_api_key = anthropic_api_key,
-       google_api_key = google_api_key)
+       google_api_key = google_api_key,
+       xai_api_key = xai_api_key)
 }
 
 
@@ -81,7 +99,7 @@ get_api_key <- function() {
 #' # set_api_key("openai", "XXXXXXXXXXX")
 #' }
 #' @export
-set_api_key <- function(company = c("openai", "anthropic", "google"), api_key = NULL) {
+set_api_key <- function(company = c("openai", "anthropic", "google", "xai"), api_key = NULL) {
   company <- match.arg(company)
 
   if (is.null(api_key)) {
@@ -107,7 +125,7 @@ set_api_key <- function(company = c("openai", "anthropic", "google"), api_key = 
 #' @export
 #' @import dplyr
 #' @importFrom base64enc base64encode
-regist_api_key <- function(company = c("openai", "anthropic", "google"), api_key = NULL) {
+regist_api_key <- function(company = c("openai", "anthropic", "google", "xai"), api_key = NULL) {
   company <- match.arg(company)
 
   if (is.null(api_key)) {

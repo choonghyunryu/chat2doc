@@ -4,7 +4,10 @@
 \alias{regist_api_key}
 \title{Regist API key to package file}
 \usage{
-regist_api_key(company = c("openai", "anthropic", "google"), api_key = NULL)
+regist_api_key(
+  company = c("openai", "anthropic", "google", "xai"),
+  api_key = NULL
+)
 }
 \arguments{
 \item{company}{character. 등록할 API key의 회사명.}

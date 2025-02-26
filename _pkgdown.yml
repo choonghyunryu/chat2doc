@@ -1,0 +1,39 @@
+title: chat2doc
+
+template:
+  bootstrap: 5
+  bootswatch: pulse
+  bslib:
+    primary: "#AC7ED1"
+    navbar-background: "#AC7ED1"
+    pkgdown-nav-height: 80px
+    base_font: NanumSquare
+    font_scale: 0.8
+
+reference:
+- title: Support Chat with Large Language Models
+  desc:  Various handlings are needed to utilize the results of the Large Language Model Chat API in documents, etc.
+  contents:
+  - chat2doc
+- subtitle: Handle API key for LLMs
+  contents:
+  - get_api_key
+  - set_api_key
+  - regist_api_key
+
+- subtitle: Authoring functions for reporting
+  contents:
+  - chat2markdown
+  - edit_openai
+
+navbar:
+  title: chat2doc
+  type: default
+  right:
+  - text: Function reference
+    href: reference/index.html
+  - icon: fa-github fa-lg
+    href: https://github.com/choonghyunryu/
+
+development:
+  mode: auto
