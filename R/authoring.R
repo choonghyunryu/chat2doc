@@ -1,9 +1,24 @@
 #' @export
 #' @import ellmer
-chat2markdown <- function(x) {
-  contents_markdown(x) |>
-    trim_before_string("Assistant\n\n") |>
-    cat()
+#' @import stringr
+chat2markdown <- function(x, title_levels = TRUE) {
+  chat_text <- contents_markdown(x) |>
+    trim_before_string("Assistant\n\n")
+
+  first_char <- str_sub(chat_text, 1, 1)
+  match_result <- str_extract(chat_text, paste0("^", first_char, "+")) |>
+    str_length()
+
+  if (title_levels & match_result > 1) {
+    contents_markdown(x) |>
+      trim_before_string("Assistant\n\n") |>
+      str_replace_all("# ", " ") |>
+      cat()
+  } else {
+    contents_markdown(x) |>
+      trim_before_string("Assistant\n\n") |>
+      cat()
+  }
 }
 
 
