@@ -1,0 +1,14 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/dev/authors.html</loc></url>
+<url><loc>/dev/index.html</loc></url>
+<url><loc>/dev/news/index.html</loc></url>
+<url><loc>/dev/reference/chat2doc.html</loc></url>
+<url><loc>/dev/reference/chat_grok.html</loc></url>
+<url><loc>/dev/reference/edit_openai.html</loc></url>
+<url><loc>/dev/reference/get_api_key.html</loc></url>
+<url><loc>/dev/reference/index.html</loc></url>
+<url><loc>/dev/reference/list_models_openai.html</loc></url>
+<url><loc>/dev/reference/regist_api_key.html</loc></url>
+<url><loc>/dev/reference/set_api_key.html</loc></url>
+</urlset>
+

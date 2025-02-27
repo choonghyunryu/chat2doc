@@ -6,6 +6,16 @@ chat2markdown <- function(x) {
     cat()
 }
 
+
+#' Edit text
+#' @description Chat 결과를 요약하거나 편집
+#' @param x A Chat object.
+#' @param type character. 요약 또는 편집 중 하나를 선택. "summary", "edit" 중 하나.
+#' @return character.
+#' @examples
+#' \dontrun{
+#' list_models_openai()
+#' }
 #' @export
 #' @import ellmer
 edit_openai <- function(x, type = c("summary", "edit")) {

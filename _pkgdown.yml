@@ -20,11 +20,13 @@ reference:
   - get_api_key
   - set_api_key
   - regist_api_key
-
 - subtitle: Authoring functions for reporting
   contents:
-  - chat2markdown
   - edit_openai
+- subtitle: Chat with LLMs
+  contents:
+  - chat_grok
+  - starts_with("list_models")
 
 navbar:
   title: chat2doc
@@ -34,6 +36,7 @@ navbar:
     href: reference/index.html
   - icon: fa-github fa-lg
     href: https://github.com/choonghyunryu/
+    aria-label: Github
 
 development:
   mode: auto
