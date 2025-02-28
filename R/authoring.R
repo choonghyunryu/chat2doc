@@ -1,3 +1,12 @@
+#' Convert Chat to Markdown
+#' @description Chat 결과를 Markdown 형식으로 변환합니다.
+#' @param x A Chat object.
+#' @param title_levels logical. 제목 수준을 유지할지 여부를 결정합니다.
+#' @return character.
+#' @examples
+#' \dontrun{
+#' chat2markdown(x)
+#' }
 #' @export
 #' @import ellmer
 #' @import stringr
@@ -10,15 +19,48 @@ chat2markdown <- function(x, title_levels = TRUE) {
     str_length()
 
   if (title_levels & match_result > 1) {
-    contents_markdown(x) |>
+    chat_text <- contents_markdown(x) |>
       trim_before_string("Assistant\n\n") |>
-      str_replace_all("# ", " ") |>
-      cat()
-  } else {
-    contents_markdown(x) |>
-      trim_before_string("Assistant\n\n") |>
-      cat()
+      str_replace_all("# ", " ")
   }
+
+  return(chat_text)
+}
+
+
+#' Outputs Chat to Markdown
+#' @description Chat 결과를 Markdown 형식으로 출력합니다.
+#' @param x A Chat object.
+#' @param title_levels logical. 제목 수준을 유지할지 여부를 결정합니다.
+#' @examples
+#' \dontrun{
+#' cat_chat(x)
+#' }
+#' @export
+#' @import ellmer
+#' @import stringr
+cat_chat <- function(x, title_levels = TRUE) {
+  chat2markdown(x, title_levels) |>
+    cat()
+}
+
+
+#' List sub-titles in Chat
+#' @description Chat 결과에서 서브 타이틀들을 추출
+#' @param x A Chat object.
+#' @return character.
+#' @examples
+#' \dontrun{
+#' extract_subtitles(x)
+#' }
+#' @export
+#' @import stringr
+extract_subtitles <- function(x) {
+  chat2markdown(x) |>
+    str_extract_all("## (.+?)\n") |>
+    unlist() |>
+    str_remove("## ") |>
+    str_remove("\n")
 }
 
 

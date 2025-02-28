@@ -6,3 +6,11 @@ trim_before_string <- function(text_vector, keyword) {
   return(trimmed_vector)
 }
 
+
+#' @export
+# 두 문자열 패턴 사이의 문자열 추출하는 함수출
+extract_between <- function(text, start_pattern, end_pattern) {
+  match_result <- str_extract(text, paste0("(?<=", start_pattern, ").*?(?=", end_pattern, ")"))
+
+  return(ifelse(is.na(match_result), "", match_result))
+}

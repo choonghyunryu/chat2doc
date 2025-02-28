@@ -3,14 +3,17 @@
 \name{list_models_openai}
 \alias{list_models_openai}
 \alias{list_models_anthropic}
+\alias{list_models_xai}
 \title{List openai models}
 \usage{
 list_models_openai(api_key = Sys.getenv("OPENAI_API_KEY"))
 
 list_models_anthropic(api_key = Sys.getenv("ANTHROPIC_API_KEY"))
+
+list_models_xai(api_key = Sys.getenv("XAI_API_KEY"))
 }
 \arguments{
-\item{api_key}{character. anthropic API key.}
+\item{api_key}{character. xAI API key.}
 }
 \value{
 a data.frame.
@@ -30,8 +33,20 @@ Names of data.frame is as follows.
 \item display_name : 모델의 이름.
 \item created_at : 모델이 생성된 날짜와 시간.
 }
+
+a data.frame.
+Names of data.frame is as follows.
+\itemize{
+\item id : 모델의 고유 식별자. 이 식별자는 모델을 호출하거나 다른 API 요청에서 참조할 때 사용됨.
+\item created : 모델 생성일자.
+\item object : 모델 객체의 종류를 나타내는 문자열.
+\item owned_by : 모델의 오너.
+}
 }
 \description{
+현재 사용 가능한 모델을 나열하고 소유자 및 생성일자 등,
+각 모델에 대한 기본 정보를 제공.
+
 현재 사용 가능한 모델을 나열하고 소유자 및 생성일자 등,
 각 모델에 대한 기본 정보를 제공.
 
@@ -44,5 +59,8 @@ list_models_openai()
 }
 \dontrun{
 list_models_anthropic()
+}
+\dontrun{
+list_models_xai()
 }
 }

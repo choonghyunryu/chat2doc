@@ -1,4 +1,19 @@
-# chat2doc 0.0.3.9000
+# chat2doc 0.0.4.9000
+
+## NEW FEATURES
+
+* Support xAI Grok. (#4).
+    - add functions
+        - list_models_xai()
+* Support authoring.
+    - add functions
+        - chat2markdown(). only manpage
+        - cat_chat()   
+        - extract_subtitles()
+        
+        
+        
+# chat2doc 0.0.3
 
 ## NEW FEATURES
 
