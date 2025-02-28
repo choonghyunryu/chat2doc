@@ -98,3 +98,70 @@ edit_openai <- function(x, type = c("summary", "edit")) {
     return(data$edit)
   }
 }
+
+
+#' @export
+common_subtitle <- function(x = list()) {
+  x |>
+    map(~ extract_subtitles(.)) |>
+    unlist() |>
+    matrix(nrow = length(x), byrow = TRUE) |>
+    apply(2, function(x) paste(unique(x), collapse = "|"))
+}
+
+
+#' @export
+get_docs <- function(chats = list(), subtitle = NULL, is_last = FALSE) {
+  chats |>
+    map(~ chat2markdown(.)) |>
+    map(~ str_remove_all(.x, "\n|\\*\\*")) |>
+    map(~ extract_between(.x, subtitle, ifelse(is_last, "$", "##"))) |>
+    unlist()
+}
+
+
+#' @export
+get_summary <- function(x, prompt = NULL, topic = NULL) {
+  topic <- topic |>
+    str_remove_all("[0-9]|\\.")
+
+  type_summary <- type_object(
+    "Summary of the article.",
+    summary = type_string(glue::glue(prompt))
+  )
+
+  chat <- chat_claude()
+  data <- chat$extract_data(x, type = type_summary)
+
+  rm(chat)
+
+  data$summary
+}
+
+
+#prompt <- "한국 생명보험시장 전략가들이 말한 '{topic}'에서 공통적으로 이야기하는 내용을 한글로 요약해주세요."
+get_summaries <- function(x, prompt = NULL, topics = NULL) {
+  doc <- ""
+
+  agenda <- topics
+  n_topic <- length(agenda)
+
+  topics <- topics |>
+    str_remove_all("[0-9]|\\.") |>
+    trim_before_string("\\|")
+
+  docs <- seq(n_topic) |>
+    purrr::map_chr(function(idx) {
+      topic <- topics[idx]
+      doc <- paste(doc , paste0("## ", topic), sep = "\n\n")
+
+      sum_doc <- get_summary(x |> get_docs(agenda[idx], ifelse(idx == n_topic, TRUE, FALSE)),
+                             prompt, agenda[idx])
+      doc <- paste(doc , sum_doc, sep = "\n\n")
+
+      return(doc)
+    })
+
+  return(docs)
+}
+
