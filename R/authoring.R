@@ -100,17 +100,37 @@ edit_openai <- function(x, type = c("summary", "edit")) {
 }
 
 
+#' Common sub-titles in Chat
+#' @description Chat 리스트에서 union 서브 타이틀들을 추출
+#' @param x list. Chat objects.
+#' @return character.
+#' @examples
+#' \dontrun{
+#' common_subtitle(x)
+#' }
 #' @export
+#' @import stringr
+#' @importFrom purrr map
 common_subtitle <- function(x = list()) {
   x |>
-    map(~ extract_subtitles(.)) |>
+    purrr::map(~ extract_subtitles(.)) |>
     unlist() |>
     matrix(nrow = length(x), byrow = TRUE) |>
     apply(2, function(x) paste(unique(x), collapse = "|"))
 }
 
 
+#' Extract documnents in Chats
+#' @description Chat 리스트에서 특정 subtitle의 내용들을 추출
+#' @param x list. Chat objects.
+#' @return character.
+#' @examples
+#' \dontrun{
+#' get_docs(x, subtitle = "3. 판매채널의 유형 및 전략")
+#' }
 #' @export
+#' @import stringr
+#' @importFrom purrr map
 get_docs <- function(chats = list(), subtitle = NULL, is_last = FALSE) {
   chats |>
     map(~ chat2markdown(.)) |>
@@ -140,6 +160,7 @@ get_summary <- function(x, prompt = NULL, topic = NULL) {
 
 
 #prompt <- "한국 생명보험시장 전략가들이 말한 '{topic}'에서 공통적으로 이야기하는 내용을 한글로 요약해주세요."
+#' @export
 get_summaries <- function(x, prompt = NULL, topics = NULL) {
   doc <- ""
 
