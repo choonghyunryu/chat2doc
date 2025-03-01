@@ -123,6 +123,8 @@ common_subtitle <- function(x = list()) {
 #' Extract documnents in Chats
 #' @description Chat 리스트에서 특정 subtitle의 내용들을 추출
 #' @param x list. Chat objects.
+#' @param subtitle character. 서브 타이틀.
+#' @param is_last logical. 마지막 서브 타이틀 여부.
 #' @return character.
 #' @examples
 #' \dontrun{
@@ -140,7 +142,21 @@ get_docs <- function(chats = list(), subtitle = NULL, is_last = FALSE) {
 }
 
 
+#' Summaries subtitle documents in Chats
+#' @description Chat 리스트에서 특정 subtitle의 내용들을 추출
+#' @param x list. Chat objects.
+#' @param prompt character. 요약을 명령하는 프롬프트.
+#' @param topic character. 토픽.
+#' @return character.
+#' @examples
+#' \dontrun{
+#' prompt <- "한국 생명보험시장 전략가들이 말한 '{topic}'에서 공통적으로 이야기하는 내용을 한글로 요약해주세요."
+#' get_summary(x, prompt = "3. 판매채널의 유형 및 전략", topic = "판매채널의 유형 및 전략")
+#' }
 #' @export
+#' @import stringr
+#' @import ellmer
+#' @importFrom glue glue
 get_summary <- function(x, prompt = NULL, topic = NULL) {
   topic <- topic |>
     str_remove_all("[0-9]|\\.")
@@ -153,14 +169,26 @@ get_summary <- function(x, prompt = NULL, topic = NULL) {
   chat <- chat_claude()
   data <- chat$extract_data(x, type = type_summary)
 
-  rm(chat)
+#  rm(chat)
 
   data$summary
 }
 
 
-#prompt <- "한국 생명보험시장 전략가들이 말한 '{topic}'에서 공통적으로 이야기하는 내용을 한글로 요약해주세요."
+#' Summaries all subtitle documents in Chats
+#' @description Chat 리스트에서 모든 subtitle의 내용들을 추출
+#' @param x list. Chat objects.
+#' @param prompt character. 요약을 명령하는 프롬프트.
+#' @param topic character. 토픽.
+#' @return character.
+#' @examples
+#' \dontrun{
+#' prompt <- "한국 생명보험시장 전략가들이 말한 '{topic}'에서 공통적으로 이야기하는 내용을 한글로 요약해주세요."
+#' get_summaries(x, prompt = "3. 판매채널의 유형 및 전략", topic = "판매채널의 유형 및 전략")
+#' }
 #' @export
+#' @import stringr
+#' @importFrom purrr map_chr
 get_summaries <- function(x, prompt = NULL, topics = NULL) {
   doc <- ""
 
@@ -180,7 +208,7 @@ get_summaries <- function(x, prompt = NULL, topics = NULL) {
                              prompt, agenda[idx])
       doc <- paste(doc , sum_doc, sep = "\n\n")
 
-      return(doc)
+      doc
     })
 
   return(docs)

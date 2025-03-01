@@ -26,6 +26,10 @@ reference:
   - chat2markdown
   - cat_chat
   - extract_subtitles
+  - common_subtitle
+  - get_docs
+  - get_summary
+  - get_summaries
 - subtitle: Chat with LLMs
   contents:
   - chat_grok

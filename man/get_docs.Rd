@@ -7,6 +7,10 @@
 get_docs(chats = list(), subtitle = NULL, is_last = FALSE)
 }
 \arguments{
+\item{subtitle}{character. 서브 타이틀.}
+
+\item{is_last}{logical. 마지막 서브 타이틀 여부.}
+
 \item{x}{list. Chat objects.}
 }
 \value{
