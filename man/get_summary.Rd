@@ -7,7 +7,7 @@
 get_summary(x, prompt = NULL, topic = NULL)
 }
 \arguments{
-\item{x}{list. Chat objects.}
+\item{x}{character.}
 
 \item{prompt}{character. 요약을 명령하는 프롬프트.}
 

@@ -13,9 +13,9 @@
   if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
     api_key <- get_api_key()
 
-    # set enthropic API key
+    # set anthropic API key
     if (!is.null(api_key$anthropic_api_key)) {
-      set_api_key("enthropic", api_key$anthropic_api_key)
+      set_api_key("anthropic", api_key$anthropic_api_key)
     }
   }
 

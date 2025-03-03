@@ -133,8 +133,8 @@ common_subtitle <- function(x = list()) {
 #' @export
 #' @import stringr
 #' @importFrom purrr map
-get_docs <- function(chats = list(), subtitle = NULL, is_last = FALSE) {
-  chats |>
+get_docs <- function(x = list(), subtitle = NULL, is_last = FALSE) {
+  x |>
     map(~ chat2markdown(.)) |>
     map(~ str_remove_all(.x, "\n|\\*\\*")) |>
     map(~ extract_between(.x, subtitle, ifelse(is_last, "$", "##"))) |>
@@ -144,7 +144,7 @@ get_docs <- function(chats = list(), subtitle = NULL, is_last = FALSE) {
 
 #' Summaries subtitle documents in Chats
 #' @description Chat 리스트에서 특정 subtitle의 내용들을 추출
-#' @param x list. Chat objects.
+#' @param x character.
 #' @param prompt character. 요약을 명령하는 프롬프트.
 #' @param topic character. 토픽.
 #' @return character.
@@ -159,7 +159,8 @@ get_docs <- function(chats = list(), subtitle = NULL, is_last = FALSE) {
 #' @importFrom glue glue
 get_summary <- function(x, prompt = NULL, topic = NULL) {
   topic <- topic |>
-    str_remove_all("[0-9]|\\.")
+    str_remove_all("[0-9]|\\.") |>
+    trim_before_string("\\|")
 
   type_summary <- type_object(
     "Summary of the article.",
@@ -168,8 +169,6 @@ get_summary <- function(x, prompt = NULL, topic = NULL) {
 
   chat <- chat_claude()
   data <- chat$extract_data(x, type = type_summary)
-
-#  rm(chat)
 
   data$summary
 }
