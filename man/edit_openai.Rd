@@ -2,7 +2,7 @@
 % Please edit documentation in R/authoring.R
 \name{edit_openai}
 \alias{edit_openai}
-\title{Edit text}
+\title{Edit/Summary text}
 \usage{
 edit_openai(x, type = c("summary", "edit"))
 }

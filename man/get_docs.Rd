@@ -2,7 +2,7 @@
 % Please edit documentation in R/authoring.R
 \name{get_docs}
 \alias{get_docs}
-\title{Extract documnents in Chats}
+\title{Extract documents in Chats}
 \usage{
 get_docs(x = list(), subtitle = NULL, is_last = FALSE)
 }

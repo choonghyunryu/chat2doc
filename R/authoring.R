@@ -64,7 +64,7 @@ extract_subtitles <- function(x) {
 }
 
 
-#' Edit text
+#' Edit/Summary text
 #' @description Chat 결과를 요약하거나 편집
 #' @param x A Chat object.
 #' @param type character. 요약 또는 편집 중 하나를 선택. "summary", "edit" 중 하나.
@@ -120,7 +120,7 @@ common_subtitle <- function(x = list()) {
 }
 
 
-#' Extract documnents in Chats
+#' Extract documents in Chats
 #' @description Chat 리스트에서 특정 subtitle의 내용들을 추출
 #' @param x list. Chat objects.
 #' @param subtitle character. 서브 타이틀.
