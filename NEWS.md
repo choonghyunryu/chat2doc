@@ -1,4 +1,20 @@
-# chat2doc 0.0.4.9000
+# chat2doc 0.1.0.9000
+
+## NEW FEATURES
+
+* 텍스트 처리 함수 추가 및 도움말 작성. (#5).
+    - 추가 함수
+        - remove_before_string()
+        - remove_before_first()
+    - 도움말 작성 함수
+        - trim_before_string()
+        - extract_between()
+        - remove_before_string()
+        - remove_before_first()
+        
+        
+        
+# chat2doc 0.0.4
 
 ## NEW FEATURES
 
