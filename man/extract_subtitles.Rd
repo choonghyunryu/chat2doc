@@ -4,10 +4,12 @@
 \alias{extract_subtitles}
 \title{List sub-titles in Chat}
 \usage{
-extract_subtitles(x)
+extract_subtitles(x, remove_subtitle = "^$")
 }
 \arguments{
 \item{x}{A Chat object.}
+
+\item{remove_subtitle}{character. 제거할 서브 타이틀을 지정합니다.}
 }
 \value{
 character.

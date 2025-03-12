@@ -48,6 +48,7 @@ cat_chat <- function(x, title_levels = TRUE) {
 #' List sub-titles in Chat
 #' @description Chat 결과에서 서브 타이틀들을 추출
 #' @param x A Chat object.
+#' @param remove_subtitle character. 제거할 서브 타이틀을 지정합니다.
 #' @return character.
 #' @examples
 #' \dontrun{
@@ -55,12 +56,14 @@ cat_chat <- function(x, title_levels = TRUE) {
 #' }
 #' @export
 #' @import stringr
-extract_subtitles <- function(x) {
-  chat2markdown(x) |>
-    str_extract_all("## (.+?)\n") |>
+extract_subtitles <- function(x, remove_subtitle = "^$") {
+  subtitles <- chat2markdown(x) |>
+    str_extract_all("\n## (.+?)\n") |>
     unlist() |>
     str_remove("## ") |>
-    str_remove("\n")
+    str_remove_all("\n")
+
+  subtitles[!subtitles |> str_detect(remove_subtitle)]
 }
 
 
@@ -103,6 +106,7 @@ edit_openai <- function(x, type = c("summary", "edit")) {
 #' Common sub-titles in Chat
 #' @description Chat 리스트에서 union 서브 타이틀들을 추출
 #' @param x list. Chat objects.
+#' @param remove_subtitle character. 제거할 서브 타이틀을 지정합니다.
 #' @return character.
 #' @examples
 #' \dontrun{
@@ -111,12 +115,13 @@ edit_openai <- function(x, type = c("summary", "edit")) {
 #' @export
 #' @import stringr
 #' @importFrom purrr map
-common_subtitle <- function(x = list()) {
+common_subtitle <- function(x = list(), remove_subtitle = "^$") {
   x |>
-    purrr::map(~ extract_subtitles(.)) |>
+    purrr::map(~ extract_subtitles(., remove_subtitle)) |>
     unlist() |>
     matrix(nrow = length(x), byrow = TRUE) |>
-    apply(2, function(x) paste(unique(x), collapse = "|"))
+    apply(2, function(x) paste(unique(x), collapse = "|")) |>
+    str_remove_all("\\*")
 }
 
 

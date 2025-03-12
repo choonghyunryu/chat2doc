@@ -4,10 +4,12 @@
 \alias{common_subtitle}
 \title{Common sub-titles in Chat}
 \usage{
-common_subtitle(x = list())
+common_subtitle(x = list(), remove_subtitle = "^$")
 }
 \arguments{
 \item{x}{list. Chat objects.}
+
+\item{remove_subtitle}{character. 제거할 서브 타이틀을 지정합니다.}
 }
 \value{
 character.

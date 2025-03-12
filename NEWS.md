@@ -12,7 +12,11 @@
         - remove_before_string()
         - remove_before_first()
         
-        
+## MINOR CHANGES
+
+* extract_subtitles(), common_subtitle() 개선. (#6).
+
+
         
 # chat2doc 0.0.4
 
