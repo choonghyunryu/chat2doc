@@ -1,8 +1,8 @@
 #' Get API keys from package file
 #' @description 패키지 파일에 등록된 openai API key와 anthropic API key, google API key를 조회합니다.
-#' @details regist_openai_key(), regist_anthropic_key(), regist_google_key()를 사용하지 않고, set_api_key(),
-#' set_anthropic_key()로 API key를 설정한 경우라면, get_api_key() 대신에
-#' Sys.getenv("OPENAI_API_KEY"), Sys.getenv("ANTHROPIC_API_KEY"), Sys.getenv("GOOGLE_API_KEY")를 사용하세요.
+#' @details regist_api_key()를 사용하지 않고, set_api_key()로 API key를 설정한 경우라면, get_api_key() 대신에
+#' Sys.getenv("OPENAI_API_KEY"), Sys.getenv("ANTHROPIC_API_KEY"), Sys.getenv("GOOGLE_API_KEY"),
+#' Sys.getenv("XAI_API_KEY")를 사용하세요.
 #' @examples
 #' \dontrun{
 #' # get_api_key()
