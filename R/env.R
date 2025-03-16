@@ -103,7 +103,7 @@ set_api_key <- function(company = c("openai", "anthropic", "google", "xai"), api
   company <- match.arg(company)
 
   if (is.null(api_key)) {
-    stop("OpanAI API key is required.")
+    stop("API key is required.")
   }
 
   company <- paste0(toupper(company), "_API_KEY")
@@ -129,7 +129,7 @@ regist_api_key <- function(company = c("openai", "anthropic", "google", "xai"), 
   company <- match.arg(company)
 
   if (is.null(api_key)) {
-    stop("anthropic API key is required.")
+    stop("API key is required.")
   }
 
   key_file <- file.path(system.file(package = "chat2doc"), paste0(".", company, "Key"))
