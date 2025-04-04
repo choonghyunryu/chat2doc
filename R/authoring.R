@@ -152,6 +152,7 @@ get_docs <- function(x = list(), subtitle = NULL, is_last = FALSE) {
 #' @param x character.
 #' @param prompt character. 요약을 명령하는 프롬프트.
 #' @param topic character. 토픽.
+#' @param model character. claude 모델 이름.
 #' @return character.
 #' @examples
 #' \dontrun{
@@ -162,7 +163,7 @@ get_docs <- function(x = list(), subtitle = NULL, is_last = FALSE) {
 #' @import stringr
 #' @import ellmer
 #' @importFrom glue glue
-get_summary <- function(x, prompt = NULL, topic = NULL) {
+get_summary <- function(x, prompt = NULL, topic = NULL, model = NULL) {
   topic <- topic |>
     str_remove_all("[0-9]|\\.") |>
     trim_before_string("\\|")
@@ -172,7 +173,7 @@ get_summary <- function(x, prompt = NULL, topic = NULL) {
     summary = type_string(glue::glue(prompt))
   )
 
-  chat <- chat_claude()
+  chat <- chat_claude(model = model)
   data <- chat$extract_data(x, type = type_summary)
 
   data$summary
@@ -184,6 +185,7 @@ get_summary <- function(x, prompt = NULL, topic = NULL) {
 #' @param x list. Chat objects.
 #' @param prompt character. 요약을 명령하는 프롬프트.
 #' @param topic character. 토픽.
+#' @param model character. claude 모델 이름.
 #' @return character.
 #' @examples
 #' \dontrun{
@@ -193,7 +195,7 @@ get_summary <- function(x, prompt = NULL, topic = NULL) {
 #' @export
 #' @import stringr
 #' @importFrom purrr map_chr
-get_summaries <- function(x, prompt = NULL, topics = NULL) {
+get_summaries <- function(x, prompt = NULL, topics = NULL, model = NULL) {
   doc <- ""
 
   agenda <- topics
@@ -209,7 +211,7 @@ get_summaries <- function(x, prompt = NULL, topics = NULL) {
       doc <- paste(doc , paste0("## ", topic), sep = "\n\n")
 
       sum_doc <- get_summary(x |> get_docs(agenda[idx], ifelse(idx == n_topic, TRUE, FALSE)),
-                             prompt, agenda[idx])
+                             prompt, agenda[idx], model = model)
       doc <- paste(doc , sum_doc, sep = "\n\n")
 
       doc

@@ -4,12 +4,14 @@
 \alias{get_summaries}
 \title{Summaries all subtitle documents in Chats}
 \usage{
-get_summaries(x, prompt = NULL, topics = NULL)
+get_summaries(x, prompt = NULL, topics = NULL, model = NULL)
 }
 \arguments{
 \item{x}{list. Chat objects.}
 
 \item{prompt}{character. 요약을 명령하는 프롬프트.}
+
+\item{model}{character. claude 모델 이름.}
 
 \item{topic}{character. 토픽.}
 }
