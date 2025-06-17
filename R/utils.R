@@ -76,6 +76,9 @@ remove_before_first <- function(text, pattern) {
 #' @import stringr
 #' @rdname trim_before_string
 extract_between <- function(text, start_pattern, end_pattern) {
+  # start_pattern에 괄호가 포함되어 있을 경우, 이를 이스케이프 처리
+  start_pattern <- str_replace_all(start_pattern, "([()])", "\\\\\\1")
+
   match_result <- str_extract(text, paste0("(?<=", start_pattern, ").*?(?=", end_pattern, ")"))
 
   return(ifelse(is.na(match_result), "", match_result))

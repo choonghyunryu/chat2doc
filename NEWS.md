@@ -1,3 +1,12 @@
+# chat2doc 0.1.1
+
+## BUG FIX
+
+* extract_between() 정규표현식 오류 수정. (#8).
+    - extract_between()
+
+
+
 # chat2doc 0.1.0.9000
 
 ## NEW FEATURES

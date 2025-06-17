@@ -1,7 +1,7 @@
 Package: chat2doc
 Title: Support Chat with Large Language Models
-Version: 0.1.0.9900
-Date: 2025-03-12
+Version: 0.1.1
+Date: 2025-06-18
 Authors@R: c(
   person("Choonghyun", "Ryu",, "choonghyun.ryu@gmail.com", role = c("aut", "cre"))
   )
